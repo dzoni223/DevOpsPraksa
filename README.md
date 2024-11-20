@@ -15,7 +15,7 @@ Configure PGP key for GitHub account.
 -----------------
 gpg --full-generate-key //generate gpg key
 gpg --list-secret-keys --keyid-format=long //list the full key
-gpg --armor --export 3AA5C34371567BD2 //print the key id in ascii format
+gpg --armor --export yourkeyhere //print the key id in ascii format
 //add the key to GitHub account
 -----------------
 
@@ -67,7 +67,7 @@ import boto3
 
 def lambda_handler(event, context):
     ec2 = boto3.client('ec2')
-    instance_id = 'i-0ba40a9720ca7d7ec'
+    instance_id = 'yourinstanceid'
 
     try:
         # Stop the instance
