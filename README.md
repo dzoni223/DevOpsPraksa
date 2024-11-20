@@ -9,6 +9,9 @@ Configure SSH key for GitHub account.
 -----------------
 ssh-keygen -t ed25519 -C "your_email@example.com"
 //add the pub key to GitHub account
+
+eval "$(ssh-agent -s)" //start ssh agent in background
+ssh-add ~/.ssh/id_ed25519 //add ssh key to agent
 -----------------
 
 Configure PGP key for GitHub account.
@@ -19,8 +22,12 @@ gpg --armor --export yourkeyhere //print the key id in ascii format
 //add the key to GitHub account
 -----------------
 
-Install and configure git locally. --------------------
- 
+Install and configure git locally.
+------------------
+git config --global user.name "username"
+git config --global user.email "email"
+------------------
+
 Create AWS account. --------------------
 
 Create EC2 instance. --------------------
