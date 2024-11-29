@@ -33,5 +33,5 @@ jobs:
       # Step 4: Run Ansible Lint
       - name: Lint Ansible Roles
         run: |
-          ansible-lint roles/install_docker
-          ansible-lint roles/install_jenkins
+          ansible-lint ansible_project/roles/install_docker
+          ansible-lint ansible_project/roles/install_jenkins
