@@ -1,0 +1,7 @@
+---
+- name: Test install_docker role
+  hosts: all
+  tasks:
+    - name: Run install_docker role
+      ansible.builtin.include_role:
+        name: install_docker

@@ -1,0 +1,7 @@
+---
+- name: Test install_jenkins role
+  hosts: all
+  tasks:
+    - name: Run install_jenkins role
+      ansible.builtin.include_role:
+        name: install_jenkins

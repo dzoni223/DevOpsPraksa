@@ -1,0 +1,7 @@
+---
+- name: Configure EC2 Instances
+  hosts: ec2_instance
+  become: true
+  roles:
+    - install_docker
+    - install_jenkins

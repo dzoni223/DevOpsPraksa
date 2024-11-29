@@ -1,0 +1,16 @@
+---
+# tasks file for roles/install_docker
+- name: Update apt
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install Docker
+  ansible.builtin.apt:
+    name: docker.io
+    state: present
+
+- name: Start Docker service
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
