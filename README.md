@@ -92,3 +92,73 @@ def lambda_handler(event, context):
             "body": f"Failed to stop instance {instance_id}: {e}"
         }
 -------------------
+
+# IaC
+ 
+Install Ansible.
+
+Get familiar with ansible concepts (inventory, modules, roles, galaxy).
+
+Create ansible roles that will configure (install docker, Jenkins) EC2 instance.
+--------------------
+ansible-galaxy init roles/install_docker
+ansible-galaxy init roles/install_jenkins // create the structure for the roles
+
+# tasks file for roles/install_docker
+- name: Update apt
+  apt:
+    update_cache: yes
+
+- name: Install Docker
+  apt:
+    name: docker.io
+    state: present
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+# tasks file for roles/install_jenkins
+- name: Install Java
+  ansible.builtin.apt:
+    name: default-jdk
+    state: present
+
+- name: Add Jenkins repository key
+  apt_key:
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+    state: present
+
+- name: Add Jenkins repository
+  ansible.builtin.apt_repository:
+    repo: deb https://pkg.jenkins.io/debian-stable binary/
+    state: present
+
+- name: Install Jenkins
+  ansible.builtin.apt:
+    name: jenkins
+    state: present
+    update_cache: yes
+
+- name: Start and enable Jenkins
+  ansible.builtin.service:
+    name: jenkins
+    state: started
+    enabled: true
+
+#inventory.ini
+[ec2_instance]
+ec2-instance-1 ansible_host=HOST_IP ansible_user=HOST_USER_NAME
+
+#site.yml
+- name: Configure EC2 Instances
+  hosts: ec2_instance
+  become: true
+  roles:
+    - install_docker
+    - install_jenkins
+--------------------
+
+Create CI pipeline that runs Ansible lint on created role.
