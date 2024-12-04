@@ -6,11 +6,18 @@
 
 - name: Install Docker
   ansible.builtin.apt:
-    name: docker.io
+    name: "{{item}}"
     state: present
+  loop:
+    - nginx
+    - docker.io
+  when: ansible_facts['distribution'] == "Ubuntu"
 
 - name: Start Docker service
   ansible.builtin.service:
-    name: docker
+    name: "{{item}}"
     state: started
     enabled: true
+  loop:
+    - docker
+    - nginx

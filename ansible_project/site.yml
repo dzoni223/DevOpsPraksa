@@ -1,6 +1,6 @@
 ---
 - name: Configure EC2 Instances
-  hosts: ec2_instance
+  hosts: 'all'
   become: true
   roles:
     - install_docker
